@@ -1,11 +1,11 @@
 <?php
 
-/**
- * notification_center extension for Contao Open Source CMS
- *
- * @copyright  Copyright (c) 2008-2015, terminal42
- * @author     terminal42 gmbh <info@terminal42.ch>
- * @license    LGPL
+declare(strict_types=1);
+
+/*
+ * @copyright  trilobit GmbH
+ * @author     trilobit GmbH <https://github.com/trilobit-gmbh>
+ * @license    LGPL-3.0-or-later
  */
 
 namespace Trilobit\CollaborationtoolnotificationBundle\MessageDraft;
@@ -22,13 +22,13 @@ class JetBrainsSpaceMessageDraft implements MessageDraftInterface
 
     protected $objLanguage = null;
 
-    protected $arrTokens = array();
+    protected $arrTokens = [];
 
     public function __construct(Message $objMessage, Language $objLanguage, $arrTokens)
     {
-        $this->arrTokens   = $arrTokens;
+        $this->arrTokens = $arrTokens;
         $this->objLanguage = $objLanguage;
-        $this->objMessage  = $objMessage;
+        $this->objMessage = $objMessage;
     }
 
     public function getTokens()

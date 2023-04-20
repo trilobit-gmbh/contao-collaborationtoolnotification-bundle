@@ -2,9 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Trilobit\CollaborationtoolnotificationBundle;
+/*
+ * @copyright  trilobit GmbH
+ * @author     trilobit GmbH <https://github.com/trilobit-gmbh>
+ * @license    LGPL-3.0-or-later
+ */
 
-use Trilobit\CollaborationtoolnotificationBundle\MessageDraft\JetBrainsSpaceMessageDraft;
+namespace Trilobit\CollaborationtoolnotificationBundle\Gateway;
+
 use GuzzleHttp\Exception\GuzzleException;
 use NotificationCenter\Gateway\Base;
 use NotificationCenter\Gateway\GatewayInterface;
@@ -14,13 +19,14 @@ use NotificationCenter\Model\Message;
 use Swe\SpaceSDK\Exception\MissingArgumentException;
 use Swe\SpaceSDK\HttpClient;
 use Swe\SpaceSDK\Space;
+use Trilobit\CollaborationtoolnotificationBundle\MessageDraft\JetBrainsSpaceMessageDraft;
 
 class JetBrainsSpace extends Base implements GatewayInterface, MessageDraftFactoryInterface
 {
     public function send(Message $objMessage, array $arrTokens, $strLanguage = '')
     {
         /**
-         * @var $objDraft JetBrainsSpaceMessageDraft
+         * @var JetBrainsSpaceMessageDraft $objDraft
          */
         $objDraft = $this->createDraft($objMessage, $arrTokens, $strLanguage);
 
@@ -60,17 +66,17 @@ class JetBrainsSpace extends Base implements GatewayInterface, MessageDraftFacto
 
         $result = $space->chats()->messages()->sendMessage($data);
 
-        return (!empty($result) && isset($result['id']));
+        return !empty($result) && isset($result['id']);
     }
 
     public function createDraft(Message $objMessage, array $arrTokens, $strLanguage = '')
     {
-        if ($strLanguage == '') {
+        if ('' === $strLanguage) {
             $strLanguage = $GLOBALS['TL_LANGUAGE'];
         }
 
         if (null === ($objLanguage = Language::findByMessageAndLanguageOrFallback($objMessage, $strLanguage))) {
-            return null;
+            return;
         }
 
         return new JetBrainsSpaceMessageDraft($objMessage, $objLanguage, $arrTokens);

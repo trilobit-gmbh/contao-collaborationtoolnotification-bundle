@@ -19,22 +19,12 @@ $GLOBALS['TL_DCA']['tl_nc_language']['palettes']['slack'] = '{general_legend},la
 
 $GLOBALS['TL_DCA']['tl_nc_language']['fields']['space_text'] = [
     'inputType' => 'textarea',
-    'eval' => [
-        'rgxp' => 'nc_tokens',
-        'allowHtml' => false,
-        'decodeEntities' => true,
-        'mandatory' => true,
-    ],
+    'eval' => ['rgxp' => 'nc_tokens', 'allowHtml' => false, 'decodeEntities' => true, 'mandatory' => true],
     'sql' => 'text NULL',
 ];
 
 $GLOBALS['TL_DCA']['tl_nc_language']['fields']['slack_text'] = [
     'inputType' => 'textarea',
-    'eval' => [
-        'rgxp' => 'nc_tokens',
-        'allowHtml' => false,
-        'decodeEntities' => true,
-        'mandatory' => true,
-    ],
+    'eval' => ['rgxp' => 'nc_tokens', 'allowHtml' => false, 'decodeEntities' => true, 'mandatory' => true],
     'sql' => 'text NULL',
 ];

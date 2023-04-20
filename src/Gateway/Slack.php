@@ -16,17 +16,10 @@ use NotificationCenter\Gateway\GatewayInterface;
 use NotificationCenter\MessageDraft\MessageDraftFactoryInterface;
 use NotificationCenter\Model\Language;
 use NotificationCenter\Model\Message;
-use PresProg\SlackNotification\MessageDraft\SlackMessageDraft;
+use Trilobit\CollaborationtoolnotificationBundle\MessageDraft\SlackMessageDraft;
 
-/**
- * Class Slack.
- * {@inheritDoc}
- */
 class Slack extends Base implements GatewayInterface, MessageDraftFactoryInterface
 {
-    /**
-     * {@inheritDoc}
-     */
     public function send(
         Message $objMessage,
         array $arrTokens,
@@ -37,17 +30,13 @@ class Slack extends Base implements GatewayInterface, MessageDraftFactoryInterfa
          */
         $objDraft = $this->createDraft($objMessage, $arrTokens, $strLanguage);
 
-        // return false if no language found for BC
         if (null === $objDraft) {
-            \System::log(sprintf('Could not create draft message for slack notification (Message ID: %s)', $objMessage->id), __METHOD__, TL_ERROR);
-
             return false;
         }
 
         try {
             return $this->sendDraft($objDraft);
         } catch (\Exception $e) {
-            \System::log(sprintf('Could not send slack notification for message ID %s: %s', $objMessage->id, $e->getMessage()), __METHOD__, TL_ERROR);
         }
 
         return false;
@@ -80,24 +69,13 @@ class Slack extends Base implements GatewayInterface, MessageDraftFactoryInterfa
         return 200 === $response->getStatusCode();
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function createDraft(
-        Message $objMessage,
-        array $arrTokens,
-        $strLanguage = ''
-    ) {
+    public function createDraft(Message $objMessage, array $arrTokens, $strLanguage = '')
+    {
         if ('' === $strLanguage) {
             $strLanguage = $GLOBALS['TL_LANGUAGE'];
         }
 
-        if (($objLanguage = Language::findByMessageAndLanguageOrFallback($objMessage,
-            $strLanguage)) === null
-        ) {
-            \System::log(sprintf('Could not find matching language or fallback for message ID "%s" and language "%s".',
-                $objMessage->id, $strLanguage), __METHOD__, TL_ERROR);
-
+        if (null === ($objLanguage = Language::findByMessageAndLanguageOrFallback($objMessage, $strLanguage))) {
             return;
         }
 

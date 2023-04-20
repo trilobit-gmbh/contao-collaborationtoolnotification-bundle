@@ -20,21 +20,13 @@ $GLOBALS['TL_DCA']['tl_nc_message']['palettes']['slack'] = '{title_legend},title
 
 $GLOBALS['TL_DCA']['tl_nc_message']['fields']['space_url'] = [
     'inputType' => 'text',
-    'eval' => [
-        'mandatory' => true,
-        'maxLength' => 255,
-        'rgxp' => 'url',
-        'tl_class' => 'w50',
-    ],
+    'eval' => ['maxLength' => 255, 'rgxp' => 'url', 'tl_class' => 'w50',],
     'sql' => "VARCHAR(255) NOT NULL default ''",
 ];
 
 $GLOBALS['TL_DCA']['tl_nc_message']['fields']['space_channel'] = [
     'inputType' => 'text',
-    'eval' => [
-        'maxLength' => 255,
-        'tl_class' => 'w50',
-    ],
+    'eval' => ['maxLength' => 255, 'tl_class' => 'w50',],
     'sql' => "VARCHAR(255) NOT NULL default ''",
 ];
 

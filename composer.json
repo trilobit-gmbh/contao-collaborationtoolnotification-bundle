@@ -1,5 +1,5 @@
 {
-    "name": "trilobit-gmbh/contao-worldofimages-bundle",
+    "name": "trilobit-gmbh/contao-collaborationtoolnotification-bundle",
     "description": "Contao 4 / Contao 5 collaboration tool notification / Benachrichtigung über Collaboration-Tools",
     "type": "contao-bundle",
     "license": "LGPL-3.0-or-later",

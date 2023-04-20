@@ -1,0 +1,49 @@
+{
+    "name": "trilobit-gmbh/contao-worldofimages-bundle",
+    "description": "Contao 4 / Contao 5 collaboration tool notification / Benachrichtigung über Collaboration-Tools",
+    "type": "contao-bundle",
+    "license": "LGPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "trilobit GmbH",
+            "homepage": "https://github.com/trilobit-gmbh"
+        }
+    ],
+    "require": {
+        "php": "^7.4 || ^8.0",
+        "contao/core-bundle": "^4.9 || ^5.0",
+        "swe/space-sdk": "^1.1",
+        "terminal42/notification_center": "^1.6"
+    },
+    "require-dev": {
+        "contao/easy-coding-standard": "^3.0",
+        "contao/manager-plugin": "^2.3",
+        "friendsofphp/php-cs-fixer": "^v3.1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Trilobit\\CollaborationtoolnotificationBundle\\": "src/"
+        },
+        "classmap": [
+            "src/Resources/contao/"
+        ],
+        "exclude-from-classmap": [
+            "src/Resources/contao/config/",
+            "src/Resources/contao/dca/",
+            "src/Resources/contao/languages/",
+            "src/Resources/contao/templates/"
+        ]
+    },
+    "extra": {
+        "contao-manager-plugin": "Trilobit\\CollaborationtoolnotificationBundle\\ContaoManager\\Plugin"
+    },
+    "config": {
+        "allow-plugins": {
+            "contao-components/installer": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "contao/manager-plugin": true,
+            "php-http/discovery": true,
+            "contao-community-alliance/composer-plugin": true
+        }
+    }
+}

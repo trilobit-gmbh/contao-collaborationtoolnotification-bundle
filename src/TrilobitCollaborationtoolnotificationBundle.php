@@ -10,8 +10,8 @@ declare(strict_types=1);
 
 namespace Trilobit\CollaborationtoolnotificationBundle;
 
-use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+
 class TrilobitCollaborationtoolnotificationBundle extends Bundle
 {
 }

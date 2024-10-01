@@ -20,9 +20,9 @@ use NotificationCenter\Util\StringUtil;
 
 class SlackMessageDraft implements MessageDraftInterface
 {
-    protected $message = null;
+    protected $message;
 
-    protected $language = null;
+    protected $language;
 
     protected $tokens = [];
     private ?object $stringParser;

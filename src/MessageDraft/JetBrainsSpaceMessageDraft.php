@@ -20,9 +20,9 @@ use NotificationCenter\Util\StringUtil;
 
 class JetBrainsSpaceMessageDraft implements MessageDraftInterface
 {
-    protected $message = null;
+    protected $message;
 
-    protected $language = null;
+    protected $language;
 
     protected $tokens = [];
     private ?object $stringParser;

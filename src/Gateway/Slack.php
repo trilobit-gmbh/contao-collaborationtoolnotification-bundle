@@ -23,7 +23,7 @@ class Slack extends Base implements GatewayInterface, MessageDraftFactoryInterfa
     public function send(
         Message $objMessage,
         array $arrTokens,
-        $strLanguage = ''
+        $strLanguage = '',
     ) {
         /**
          * @var SlackMessageDraft $objDraft

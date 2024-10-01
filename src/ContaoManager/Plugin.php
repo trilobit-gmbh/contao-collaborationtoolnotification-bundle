@@ -21,9 +21,6 @@ use Trilobit\CollaborationtoolnotificationBundle\TrilobitCollaborationtoolnotifi
  */
 class Plugin implements BundlePluginInterface
 {
-    /**
-     * {@inheritDoc}
-     */
     public function getBundles(ParserInterface $parser): array
     {
         return [

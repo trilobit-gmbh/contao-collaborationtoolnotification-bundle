@@ -10,7 +10,9 @@ declare(strict_types=1);
 
 namespace Trilobit\CollaborationtoolnotificationBundle\MessageDraft;
 
+use Codefog\HasteBundle\StringParser;
 use Contao\Controller;
+use Contao\System;
 use NotificationCenter\MessageDraft\MessageDraftInterface;
 use NotificationCenter\Model\Language;
 use NotificationCenter\Model\Message;
@@ -18,32 +20,43 @@ use NotificationCenter\Util\StringUtil;
 
 class SlackMessageDraft implements MessageDraftInterface
 {
-    protected $objMessage = null;
+    protected $message = null;
 
-    protected $objLanguage = null;
+    protected $language = null;
 
-    protected $arrTokens = [];
+    protected $tokens = [];
+    private ?object $stringParser;
 
-    public function __construct(Message $objMessage, Language $objLanguage, $arrTokens)
+    public function __construct(Message $message, Language $language, $tokens)
     {
-        $this->arrTokens = $arrTokens;
-        $this->objLanguage = $objLanguage;
-        $this->objMessage = $objMessage;
+        $this->tokens = $tokens;
+        $this->language = $language;
+        $this->message = $message;
+
+        $this->stringParser = System::getContainer()->get(StringParser::class);
     }
 
     public function getTokens()
     {
-        return $this->arrTokens;
+        return $this->tokens;
     }
 
     public function getMessage()
     {
-        return $this->objMessage;
+        return $this->message;
     }
 
     public function getLanguage()
     {
-        return $this->objLanguage->language;
+        return $this->language->language;
+    }
+
+    public function getText()
+    {
+        $buffer = $this->language->slack_text;
+        $buffer = $this->stringParser->recursiveReplaceTokensAndTags($buffer, $this->tokens, StringUtil::NO_TAGS);
+
+        return Controller::convertRelativeUrls($buffer, '', true);
     }
 
     public function getUsername()
@@ -54,13 +67,5 @@ class SlackMessageDraft implements MessageDraftInterface
     public function getChannel()
     {
         return $this->getMessage()->slack_channel;
-    }
-
-    public function getText()
-    {
-        $strText = $this->objLanguage->slack_text;
-        $strText = \Haste\Util\StringUtil::recursiveReplaceTokensAndTags($strText, $this->arrTokens, StringUtil::NO_TAGS);
-
-        return Controller::convertRelativeUrls($strText, '', true);
     }
 }
